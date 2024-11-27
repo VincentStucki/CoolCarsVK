@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/CoolCarsVK.iml" filepath="$PROJECT_DIR$/.idea/CoolCarsVK.iml" />
+      <module fileurl="file://$PROJECT_DIR$/m450-cool-cars-be/m450-cool-cars-be.iml" filepath="$PROJECT_DIR$/m450-cool-cars-be/m450-cool-cars-be.iml" />
+    </modules>
+  </component>
+</project>

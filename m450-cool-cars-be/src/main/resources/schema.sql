@@ -1,9 +1,0 @@
-
-DROP TABLE IF EXISTS car;
-
-CREATE TABLE car (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  brand VARCHAR(50),
-  model VARCHAR(50),
-  horse_power INT
-);

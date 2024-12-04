@@ -12,7 +12,6 @@
 2. [Projektbeschreibung](#2-projektbeschreibung)  
    - [2.1 Zielsetzung](#21-zielsetzung)  
    - [2.2 Projektumfang](#22-projektumfang)  
-   - [2.3 Anforderungen](#23-anforderungen)  
 3. [Kompetenzmatrix und Nachweis](#3-kompetenzmatrix-und-nachweis)  
    - [3.1 Unterschiede zwischen funktionaler Programmierung und anderen Paradigmen](#31-unterschiede-zwischen-funktionaler-programmierung-und-anderen-paradigmen)  
    - [3.2 Anforderungen und Design](#32-anforderungen-und-design)  
@@ -42,8 +41,7 @@ Das Projekt umfasst:
 - Anwendung deklarativer und funktionaler Designprinzipien  
 - Refactoring und Performance-Optimierung  
 
-### 2.3 Anforderungen  
-Die Anforderungen umfassen sowohl imperative als auch deklarative Konzepte. Ziel ist es, diese beiden Paradigmen zu vergleichen und funktionale Vorteile darzustellen.  
+
 
 ---
 
@@ -51,25 +49,30 @@ Die Anforderungen umfassen sowohl imperative als auch deklarative Konzepte. Ziel
 
 ### 3.1 Unterschiede zwischen funktionaler Programmierung und anderen Paradigmen  
 
-#### AG1: Eigenschaften von Funktionen und Unterschiede zu Prozeduren  
+#### A1: Eigenschaften von Funktionen und Unterschiede zu Prozeduren  - Immutability vs. referenzierte Objekte - Vergleich von OO, prozedural und funktional.
 Wir haben reine Funktionen ohne Seiteneffekte erstellt und deren Vorteile, wie leichtere Testbarkeit und bessere Lesbarkeit, demonstriert.  
+Code-Beispiel:
+```javascript
 
-#### AF1: Immutability vs. referenzierte Objekte  
-Daten in **Cool-Cars** sind immutable, wodurch Seiteneffekte vermieden und parallele Prozesse vereinfacht wurden. Beispiele finden sich in der Funktion `addCar` im Modul `car_management.py`.  
+```
+Daten in **Cool-Cars** sind immutable, wodurch Seiteneffekte vermieden und parallele Prozesse vereinfacht wurden.
+zu sehen in:
+```java
 
-#### AE1: Vergleich von OO, prozedural und funktional  
-Eine Tabelle im Anhang vergleicht die Lösungsansätze desselben Problems in allen drei Paradigmen.  
-
+```
 ---
 
 ### 3.2 Anforderungen und Design  
 
-#### BG1/BG2: Unterschiede zwischen imperativ und deklarativ  
-Imperative Anforderungen wurden in deklarative transformiert: Statt Schritt-für-Schritt-Anweisungen wurde der gewünschte Endzustand beschrieben (z. B. Sortieren nach Kriterien).  
+#### B1: Alles ist deklarativ  und funktional
+Code-Beispiel davor:
+```javascript
 
-#### BF2: Functional Design für Problemstellung  
-Ein datengetriebenes Functional Design wurde mit Map, Filter und Reduce entwickelt.  
+```
+Code dannach:
+```java
 
+```
 ---
 
 ### 3.3 Umsetzung der funktionalen Programmierung  

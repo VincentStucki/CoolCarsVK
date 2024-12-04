@@ -1,13 +1,104 @@
+.App {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Stellt sicher, dass die gesamte Höhe des Bildschirms genutzt wird */
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.filter-toggle-button {
+    padding: 5px 10px;
+    background-color: goldenrod;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.filter-toggle-button:hover {
+    background-color: darkgoldenrod;
+}
+
+.filter-right {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 35%;
+}
+
+.filter-right label {
+    font-size: 14px;
+}
+
+.filter-right input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+
+.filter {
+    display: flex;
+    justify-content: space-between; /* Die Elemente links und rechts anordnen */
+    align-items: flex-start;
+    width: 100%;
+    max-width: 600px;
+    gap: 20px; /* Abstand zwischen den beiden Bereichen */
+    margin-bottom: 20px;
+}
+
+.filter-left {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Abstand zwischen den Elementen */
+    width: 60%; /* 60% für den linken Bereich */
+}
+
+.filter-right {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Abstand zwischen den Checkboxen */
+    width: 35%; /* 35% für den rechten Bereich */
+    margin-bottom: -10px;
+}
+
+.filter input[type="text"],
+.filter select {
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    width: 100%;
+}
+
+.filter label {
+    font-size: 14px;
+}
+
+.filter input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+
 
 .car-box {
-    width: 50%;
+    width: 100%;
+    max-width: 600px;
     border: 1px solid #ccc;
     padding: 10px;
     margin: 10px 0;
-    border-radius: 5px;
+    border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s, box-shadow 0.2s;
 }
+
 .car-box:hover {
     transform: translateY(-5px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -16,9 +107,62 @@
 ul {
     list-style-type: none;
     padding: 0;
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-height: 500px;
+    overflow-y: auto;
 }
+
 li {
     margin: 0;
+    font-size: 15px;
+
+}
+
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    gap: 10px;
+    min-height: 50px;
+}
+
+.pagination button {
+    padding: 10px 20px;
+    background-color: goldenrod;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.pagination button:hover {
+    background-color: darkgoldenrod;
+}
+
+.pagination button:disabled {
+    background-color: #d6d6d6;
+    cursor: not-allowed;
+}
+
+.pagination span {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+/* Aktivierte Seite hervorheben */
+.pagination button.active {
+    background-color: darkgoldenrod;
+}
+
+.pagination button.active:hover {
+    background-color: darkgoldenrod;
 }
 
 

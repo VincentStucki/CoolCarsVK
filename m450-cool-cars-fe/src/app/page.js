@@ -13,6 +13,8 @@ export default function Home() {
     const [filter, setFilter] = useState("");
     const [currentPage, setCurrentPage] = useState(1); // Aktuelle Seite
     const [carsPerPage] = useState(5); // Einträge pro Seite
+    const [showFilters, setShowFilters] = useState(false); // Zustand für das Anzeigen der Filter
+    const [randomCar, setRandomCar] = useState(null);
 
     function buttonHandler() {
         fetch("http://localhost:8080/cars")
@@ -59,6 +61,14 @@ export default function Home() {
             updatedCars = updatedCars.filter((car) => car.horsePower === maxHorsePower); // Nur das Auto mit max PS
         }
 
+        if (filter === "rand"){
+            updatedCars = updatedCars.reduce((acc, car, index) => {
+                const randomIndex = Math.floor(Math.random() * updatedCars.length);
+                return index === randomIndex ? [car] : acc;
+            }, []);
+        }
+
+
         const indexOfFirstCar = (currentPage - 1) * carsPerPage;
         const paginatedCars = updatedCars.slice(indexOfFirstCar, indexOfFirstCar + carsPerPage);
 
@@ -83,51 +93,60 @@ export default function Home() {
         <div className="App">
             <h1>My Frontend - The very beginning</h1>
 
-            <div>
-                <input
-                    type="text"
-                    placeholder="Search cars..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                /> <br />
-                Filter: <select name="filter" id="filter" value={filter} onChange={(e) => setFilter(e.target.value)}>
-                <option value="">Show All</option>
-                <option value="ps">Show max PS</option>
-            </select> <br />
-                <label>
+            <div className="filter">
+                <div className="filter-left">
                     <input
-                        type="checkbox"
-                        name="sortOrder"
-                        value="asc"
-                        checked={sortOrder === "asc"}
-                        onChange={() => handleSortOrderChange("asc")}
+                        type="text"
+                        placeholder="Search cars..."
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
                     />
-                    Sort by brand (ascending)
-                </label>
-                <br />
-                <label>
-                    <input
-                        type="checkbox"
-                        name="sortOrder"
-                        value="desc"
-                        checked={sortOrder === "desc"}
-                        onChange={() => handleSortOrderChange("desc")}
-                    />
-                    Sort by brand (descending)
-                </label>
-                <br />
-            </div>
+                    <select value={filter} onChange={(e) => setFilter(e.target.value)}>
+                        <option value="">Show All</option>
+                        <option value="ps">Show max PS</option>
+                        <option value="rand">Random Car</option>
+                    </select>
+                </div>
 
-            <label>
-                <input
-                    type="checkbox"
-                    checked={isName}
-                    onChange={(e) => setIsName(e.target.checked)}
-                />
-                Only show brand
-            </label>
-            <br />
-            <br />
+                <div className="filter-right">
+                    <button onClick={() => setShowFilters(!showFilters)} className="filter-toggle-button">
+                        {showFilters ? "−" : "+"} Filters
+                    </button>
+
+                    {showFilters && (
+                        <>
+                            <label>
+                                <input
+                                    type="checkbox"
+                                    name="sortOrder"
+                                    value="asc"
+                                    checked={sortOrder === "asc"}
+                                    onChange={() => handleSortOrderChange("asc")}
+                                />
+                                Sort by brand (ascending)
+                            </label>
+                            <label>
+                                <input
+                                    type="checkbox"
+                                    name="sortOrder"
+                                    value="desc"
+                                    checked={sortOrder === "desc"}
+                                    onChange={() => handleSortOrderChange("desc")}
+                                />
+                                Sort by brand (descending)
+                            </label>
+                            <label>
+                                <input
+                                    type="checkbox"
+                                    checked={isName}
+                                    onChange={(e) => setIsName(e.target.checked)}
+                                />
+                                Only show brand
+                            </label>
+                        </>
+                    )}
+                </div>
+            </div>
 
             <ul>
                 {cars.map((car, index) => (
@@ -154,7 +173,6 @@ export default function Home() {
                     Next
                 </button>
             </div>
-
 
             <br />
             <Link href="/carform">Add a new car</Link>

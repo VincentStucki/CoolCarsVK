@@ -145,8 +145,9 @@ export default function App() {
 
 ### 3.3 Umsetzung der funktionalen Programmierung  
 
-#### C2F/C2E: Funktionen als Objekte und Argumente  
-Die Funktion `applyDiscount` akzeptiert eine andere Funktion zur Berechnung des Rabatts, wodurch eine hohe Flexibilität im Programm ermöglicht wird.  
+#### C2: Funktionen als Objekte und Argumente  
+Die Funktion `handleSortOrderChange` haben wir als Variable defeniert und folglich komplex in einem ButtonHandler Verwendet, um wiederrum die Funktion `showFilters` zu benutzen. 
+
 
 #### C4F/C4E: Map, Filter und Reduce  
 Für die Datenverarbeitung wurde `reduce` genutzt, um die Gesamtzahl der Autos zu ermitteln.  

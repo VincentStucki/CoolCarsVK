@@ -280,6 +280,12 @@ li {
         transform: scale(1);
     }
 }
+.copy-button {
+    padding-bottom: 7px;
+    padding-right: 2px;
+    padding-left: 2px;
+    margin-left: 3px;
+}
 
 
 

@@ -3,6 +3,8 @@
 import style from './style.css'
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faClipboard } from '@fortawesome/free-solid-svg-icons'
 
 export default function Home() {
     const [orgCars, setOrgCars] = useState([]);
@@ -16,6 +18,8 @@ export default function Home() {
     const [showFilters, setShowFilters] = useState(false); // Zustand für das Anzeigen der Filter
     const [randomCar, setRandomCar] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [shufflingCar, setShufflingCar] = useState(null);
+    const [isShuffling, setIsShuffling] = useState(false);
 
     function buttonHandler() {
         fetch("http://localhost:8080/cars")
@@ -62,13 +66,6 @@ export default function Home() {
             updatedCars = updatedCars.filter((car) => car.horsePower === maxHorsePower); // Nur das Auto mit max PS
         }
 
-        if (filter === "rand"){
-            updatedCars = updatedCars.reduce((acc, car, index) => {
-                const randomIndex = Math.floor(Math.random() * updatedCars.length);
-                return index === randomIndex ? [car] : acc;
-            }, []);
-        }
-
 
         const indexOfFirstCar = (currentPage - 1) * carsPerPage;
         const paginatedCars = updatedCars.slice(indexOfFirstCar, indexOfFirstCar + carsPerPage);
@@ -84,23 +81,44 @@ export default function Home() {
     const totalPages = Math.ceil(orgCars.length / carsPerPage);
 
     // Seitenwechsel
-    const handlePageChange = (pageNumber) => {
-        if (pageNumber >= 1 && pageNumber <= totalPages) {
-            setCurrentPage(pageNumber);
-        }
+    const handlePageChange = (direction) => {
+        setCurrentPage((prevPage) => {
+            const nextPage = prevPage + direction;
+            return nextPage >= 1 && nextPage <= totalPages ? nextPage : prevPage;
+        });
     };
 
     const handlePickRandom = () => {
-        const randomIndex = Math.floor(Math.random() * orgCars.length);
-        const randomCar = orgCars[randomIndex];
-        setRandomCar(randomCar);
-        setIsModalOpen(true);
+        setIsShuffling(true);
+
+        let shuffleCount = 0;
+        const shuffleInterval = setInterval(() => {
+            const randomIndex = Math.floor(Math.random() * orgCars.length);
+            setShufflingCar(orgCars[randomIndex]);
+            shuffleCount++;
+
+            if (shuffleCount > 17) { // Nach 10 Wiederholungen aufhören
+                clearInterval(shuffleInterval);
+                const finalRandomIndex = Math.floor(Math.random() * orgCars.length);
+                setRandomCar(orgCars[finalRandomIndex]);
+                setIsShuffling(false);
+                setIsModalOpen(true);
+            }
+        }, 50); // Aktualisierung alle 100ms
     };
 
     const handleCloseModal = () => {
         setIsModalOpen(false);
     };
 
+    const handleCopyToClipboard = () => {
+        if (randomCar) {
+            const carData = `${randomCar.brand} ${randomCar.model} (${randomCar.horsePower} HP)`;
+            navigator.clipboard.writeText(carData).then(() => {
+                alert("Car data copied to clipboard!");
+            });
+        }
+    }
 
     return (
         <div className="App">
@@ -172,30 +190,45 @@ export default function Home() {
 
             <div className="pagination">
                 <button
-                    onClick={() => handlePageChange(currentPage - 1)}
+                    onClick={() => handlePageChange(-1)}
                     disabled={currentPage === 1}
                 >
                     Prev
                 </button>
                 <span>Page {currentPage} of {totalPages}</span>
                 <button
-                    onClick={() => handlePageChange(currentPage + 1)}
+                    onClick={() => handlePageChange(1)}
                     disabled={currentPage === totalPages}
                 >
                     Next
                 </button>
                 <button className="button-85" role="button" onClick={handlePickRandom}>Pick Random</button>
+
+
+
             </div>
             <div className="total-cars">
                 Total Cars: {orgCars.reduce((total) => total + 1, 0)}
             </div>
 
+            {/* Shuffle-Anzeige */}
+            {isShuffling && (
+                <div className="modal-overlay">
+                    <div className="modal-content">
+                    <p>Shuffling...</p>
+                    <h3>{shufflingCar?.brand} {shufflingCar?.model}</h3>
+                    </div>
+                </div>
+            )}
+
             {isModalOpen && (
                 <div className="modal-overlay" onClick={handleCloseModal}>
                     <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-                        <h2>Random Car</h2>
-                        <p>{randomCar?.brand} {randomCar?.model} ({randomCar?.horsePower} HP)</p>
+                        <h3>{randomCar?.brand} {randomCar?.model} ({randomCar?.horsePower} HP)</h3>
                         <button onClick={handleCloseModal} className="close-button">Close</button>
+                        <button onClick={handleCopyToClipboard} className="copy-button">
+                           <span><FontAwesomeIcon icon={faClipboard} style={{ fontSize: '25px' }} /></span>
+                    </button>
                     </div>
                 </div>
             )}

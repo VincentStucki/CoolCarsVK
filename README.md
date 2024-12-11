@@ -147,10 +147,20 @@ export default function App() {
 
 #### C2: Funktionen als Objekte und Argumente  
 Die Funktion `handleSortOrderChange` haben wir als Variable defeniert und folglich komplex in einem ButtonHandler Verwendet, um wiederrum die Funktion `showFilters` zu benutzen. 
+```javascript
+const handleSortOrderChange = (value) => {
+   setSortOrder((prevOrder) => (prevOrder === value ? "" : value));
+};
+ ...
+{showFilters && (
+ ...
+)
+```
 
 
-#### C4F/C4E: Map, Filter und Reduce  
-Für die Datenverarbeitung wurde `reduce` genutzt, um die Gesamtzahl der Autos zu ermitteln.  
+#### C4: Map, Filter und Reduce  
+Für die anzahl der gesamten Cars wurde `reduce` genutzt.
+
 
 ---
 

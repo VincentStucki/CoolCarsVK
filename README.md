@@ -53,12 +53,42 @@ Das Projekt umfasst:
 Wir haben reine Funktionen ohne Seiteneffekte erstellt und deren Vorteile, wie leichtere Testbarkeit und bessere Lesbarkeit, demonstriert.  
 Code-Beispiel:
 ```javascript
-
+// Seitenwechsel
+const handlePageChange = (pageNumber) => {
+   if (pageNumber >= 1 && pageNumber <= totalPages) {
+      setCurrentPage(pageNumber);
+   }
+};
 ```
-Daten in **Cool-Cars** sind immutable, wodurch Seiteneffekte vermieden und parallele Prozesse vereinfacht wurden.
+Daten in **Cool-Cars** sind immutable, wodurch Seiteneffekte vermieden und parallele Prozesse vereinfacht wurden. Wir haben orgCars als ein Use State verwenden,
+um den Datensatz nie zu ändern. (Darunter alle Funktionen) 
 zu sehen in:
 ```java
+export default function Home() {
+    const [orgCars, setOrgCars] = useState([]);
+    const [cars, setCars] = useState([]);
+    const [sortOrder, setSortOrder] = useState("");
+    const [isName, setIsName] = useState(false);
+    const [searchTerm, setSearchTerm] = useState("");
+    const [filter, setFilter] = useState("");
+    const [currentPage, setCurrentPage] = useState(1); // Aktuelle Seite
+    const [carsPerPage] = useState(5); // Einträge pro Seite
+    const [showFilters, setShowFilters] = useState(false); // Zustand für das Anzeigen der Filter
+    const [randomCar, setRandomCar] = useState(null);
 
+function buttonHandler() {
+   fetch("http://localhost:8080/cars")
+      .then((response) => response.json())
+      .then((data) => {
+         setOrgCars(data);
+         setCars(data);
+      });
+    }
+
+useEffect(() => {
+   let updatedCars = [...orgCars];
+         ...
+         ...
 ```
 ---
 

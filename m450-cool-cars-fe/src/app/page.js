@@ -15,6 +15,7 @@ export default function Home() {
     const [carsPerPage] = useState(5); // Einträge pro Seite
     const [showFilters, setShowFilters] = useState(false); // Zustand für das Anzeigen der Filter
     const [randomCar, setRandomCar] = useState(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     function buttonHandler() {
         fetch("http://localhost:8080/cars")
@@ -89,9 +90,21 @@ export default function Home() {
         }
     };
 
+    const handlePickRandom = () => {
+        const randomIndex = Math.floor(Math.random() * orgCars.length);
+        const randomCar = orgCars[randomIndex];
+        setRandomCar(randomCar);
+        setIsModalOpen(true);
+    };
+
+    const handleCloseModal = () => {
+        setIsModalOpen(false);
+    };
+
+
     return (
         <div className="App">
-            <h1>My Frontend - The very beginning</h1>
+            <h1>Cool Cars VK</h1>
 
             <div className="filter">
                 <div className="filter-left">
@@ -104,7 +117,6 @@ export default function Home() {
                     <select value={filter} onChange={(e) => setFilter(e.target.value)}>
                         <option value="">Show All</option>
                         <option value="ps">Show max PS</option>
-                        <option value="rand">Random Car</option>
                     </select>
                 </div>
 
@@ -172,8 +184,22 @@ export default function Home() {
                 >
                     Next
                 </button>
+                <button className="button-85" role="button" onClick={handlePickRandom}>Pick Random</button>
+            </div>
+            <div className="total-cars">
+                Total Cars: {orgCars.reduce((total) => total + 1, 0)}
             </div>
 
+            {isModalOpen && (
+                <div className="modal-overlay" onClick={handleCloseModal}>
+                    <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+                        <h2>Random Car</h2>
+                        <p>{randomCar?.brand} {randomCar?.model} ({randomCar?.horsePower} HP)</p>
+                        <button onClick={handleCloseModal} className="close-button">Close</button>
+                    </div>
+                </div>
+            )}
+            <br />
             <br />
             <Link href="/carform">Add a new car</Link>
         </div>

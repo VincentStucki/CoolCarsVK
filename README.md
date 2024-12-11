@@ -67,12 +67,50 @@ zu sehen in:
 #### B1: Alles ist deklarativ  und funktional
 Code-Beispiel davor:
 ```javascript
+function createCarList(cars) {
+    const container = document.createElement("div");
+    const list = document.createElement("ul");
+
+    cars.forEach(car => {
+        const item = document.createElement("li");
+        item.textContent = `${car.brand} ${car.model} (${car.horsePower} PS)`;
+        list.appendChild(item);
+    });
+
+    container.appendChild(list);
+    return container;
+}
+
+// Die Komponente in die Seite einfügen
+document.body.appendChild(createCarList(exampleCars));
 
 ```
-Code dannach:
-```java
+Unser implemeniterter Code dannach:
+```javascript
+"use client";
+
+import React from "react";
+
+const CarList = ({ cars }) => {
+    return (
+        <div>
+            <ul>
+                {cars.map((car, index) => (
+                    <li key={index}>
+                        {car.brand} {car.model} ({car.horsePower} PS)
+                    </li>
+                ))}
+            </ul>
+        </div>
+    );
+};
+
+export default function App() {
+    return <CarList cars={exampleCars} />;
+}
 
 ```
+
 ---
 
 ### 3.3 Umsetzung der funktionalen Programmierung  

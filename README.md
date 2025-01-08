@@ -376,7 +376,7 @@ const totalPages = Math.ceil(orgCars.length / carsPerPage);
 ---
 
 ## 6. Reflexion und Notengebung
-Mit den oben aufgeführten Kompetenzmatrix-Nachweisen schäätzen wir uns selber ein:
+Mit den oben aufgeführten Kompetenzmatrix-Nachweisen und Lösungen schätzen wir uns selber ein:
 
 **Note: 6**
 >

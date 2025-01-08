@@ -2,7 +2,7 @@
 **Modul**: 323 – Entwicklung eines funktionalen Programmiersystems  
 **Autoren**: Kenz Abdelkebir, Vincent Stucki  
 **Klasse**: 5IM22a  
-**Projektzeitraum**: _27.11.2024 - 08.01.2024_
+**Projektzeitraum**: _27.11.2024 - 08.01.2025_ ^Abgabe: 08.01.2025^
 
 ---
 
